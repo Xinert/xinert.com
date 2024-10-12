@@ -1,11 +1,25 @@
 #hello{
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+}
+
+#text{
+  font-family: "Lilita One", sans-serif;
+  text-align: center;
+  font-size: 50px;
+  margin-bottom: 20px;
+  margin-top: 10px;
 }
 
 #button{
-  position: fixed;
-  width: 25%;
-  height: 10%;
-  font-size: 200%;
+  width: 500px;
+  align-self: center;
+}
+
+#video{
+  align-self: center;
+}
+
+body{
+  background-color: rgb(255, 199, 172);
 }

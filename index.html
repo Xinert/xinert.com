@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="hello">
+    <button id="button" onclick="
+        let vid = document.getElementById('video');
+        let but = document.getElementById('button');
+        vid.style.display = 'block';
+        button.style.display = 'none';
+        vid.play();
+      ">Dont press this button</button>
+    <video style="display: none;" id="video" width="1920" height="1080">
+      <source src="images/never.mp4" type="video/mp4">
+    </video>
+    <script src="index.js"></script>
+  </div>
+</body>
+</html>

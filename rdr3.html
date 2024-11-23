@@ -57,44 +57,5 @@
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-  <!-->
-    board = [" ", "1", "2", "3", "1 ", "-", "-", "-", "2 ", "-", "-", "-", "3 ", "-", "-", "-", "-"]
-player_1_turn = True
-have_winner = False
-
-while not have_winner:
-    for i in range(0, 16, 4):
-        print(board[i] + "|" + board[i+1] + "|" + board[i+2] + "|" + board[i+3] + "|")
-    if player_1_turn:
-        print("Player 1's turn")
-    else:
-        print("Player 2's turn")
-    new_place = False
-    
-    while not new_place:
-        row = col = 10
-        while row > 3 or row < 1:
-            row = int(input("Which row you need: \n"))
-        while col > 3 or col < 1:
-            col = int(input("which column you need: \n"))
-        if board[4 * row + col] == "-":
-            new_place = True
-    if player_1_turn:
-        board[4 * row + col] = "o"
-    else:
-        board[4 * row + col] = "x"
-    if board[0] == board[4] and board[0] == board[8] and board[0] != "-":
-        if player_1_turn:
-            print("Player 1 wins")
-        else:
-            print("Player 2 wins")
-    if not have_winner:
-        if player_1_turn:
-            player_1_turn = False
-        else:
-            player_1_turn = True
-for i in range(0, 16, 4):
-    print(board[i] + "|" + board[i+1] + "|" + board[i+2] + "|" + board[i+3] + "|")
-  <-->
 </body>
 </html>

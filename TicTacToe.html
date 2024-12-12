@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tic Tac Toe</title>
+  <link rel="icon" type="svg/x.icon" href="static/x.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Modak&display=swap" rel="stylesheet">
+  <style>
+    .main{
+      display: flex;
+      flex-wrap:wrap;
+      width: 620px;
+      height: 620px;
+      justify-content: center;
+      align-content: flex-start;
+      margin: auto;
+    }
+
+    body{
+      background-color: rgb(238, 238, 238);
+    }
+
+    .score{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .text{
+      font-family: "Lilita One", serif;
+      font-weight: 400;
+      font-style: normal;
+      font-size: 40px;
+    }
+
+    .box{
+      width: 200px;
+      height: 200px;
+      cursor: pointer;
+    }
+
+    #corner-left-up{
+      border-right: 5px solid rgb(0, 0, 0);
+      border-bottom: 5px solid rgb(0, 0, 0);
+    }
+
+    #edge-up{
+      border-bottom: 5px solid rgb(0, 0, 0);
+      border-left: 5px solid rgb(0, 0, 0);
+      border-right: 5px solid rgb(0, 0, 0);
+    }
+
+    #corner-right-up{
+      border-left: 5px solid rgb(0, 0, 0);
+      border-bottom: 5px solid rgb(0, 0, 0);
+    }
+
+    #edge-left{
+      border-top: 5px solid rgb(0, 0, 0);
+      border-right: 5px solid rgb(0, 0, 0);
+      border-bottom: 5px solid rgb(0, 0, 0);
+    }
+
+    #middle{
+      border: 5px solid rgb(0, 0, 0);
+    }
+
+    #edge-right{
+      border-top: 5px solid rgb(0, 0, 0);
+      border-left: 5px solid rgb(0, 0, 0);
+      border-bottom: 5px solid rgb(0, 0, 0);
+    }
+
+    #corner-left-down{
+      border-right: 5px solid rgb(0, 0, 0);
+      border-top: 5px solid rgb(0, 0, 0);
+    }
+
+    #edge-down{
+      border-top: 5px solid rgb(0, 0, 0);
+      border-right: 5px solid rgb(0, 0, 0);
+      border-left: 5px solid rgb(0, 0, 0);
+    }
+
+    #corner-right-down{
+      border-left: 5px solid rgb(0, 0, 0);
+      border-top: 5px solid rgb(0, 0, 0);
+    }
+
+    #line{
+      z-index: 1;
+      position: absolute;
+      width: 15px;
+      height: 0px;
+      background-color: rgb(82, 82, 82);
+      border: 0px;
+      margin: 0px;
+    }
+
+    @media ((max-width: 700px) or (max-height: 780px)) {
+      .main {
+        width: 465px;
+        height: 465px;
+      }
+
+      .text {
+        font-size: 30px;
+      }
+
+      .box {
+        width: 150px;
+        height: 150px;
+      }
+
+      #line{
+        width: 11.25px;
+      }
+      
+      #corner-left-up,
+      #edge-up,
+      #corner-right-up,
+      #edge-left,
+      #middle,
+      #edge-right,
+      #corner-left-down,
+      #edge-down,
+      #corner-right-down {
+        border-width: 3.75px;
+      }
+    }
+
+    @media ((min-width: 1400px) and (min-height: 1160px)) {
+      .main {
+        width: 930px;
+        height: 930px;
+      }
+
+      .text {
+        font-size: 60px;
+      }
+
+      .box {
+        width: 300px;
+        height: 300px;
+      }
+
+      #line{
+        width: 22.5px;
+      }
+
+      #corner-left-up,
+      #edge-up,
+      #corner-right-up,
+      #edge-left,
+      #middle,
+      #edge-right,
+      #corner-left-down,
+      #edge-down,
+      #corner-right-down {
+        border-width: 7.5px;
+      }
+    }
+
+    @media ((max-width: 500px) or (max-height: 570px)) {
+      .main {
+        width: 310px;
+        height: 310px;
+      }
+
+      .text {
+        font-size: 30px;
+      }
+
+      .box {
+        width: 100px;
+        height: 100px;
+      }
+
+      #line{
+        width: 7.5px;
+      }
+
+      #corner-left-up,
+      #edge-up,
+      #corner-right-up,
+      #edge-left,
+      #middle,
+      #edge-right,
+      #corner-left-down,
+      #edge-down,
+      #corner-right-down {
+        border-width: 2.5px;
+      }
+    }
+
+    @media ((max-width: 340px) or (max-height: 430px)) {
+      .main {
+        width: 232.5px;
+        height: 232.5px;
+      }
+
+      .text {
+        font-size: 20px;
+      }
+
+      .box {
+        width: 75px;
+        height: 75px;
+      }
+
+      #line{
+        width: 5.625px;
+      }
+      
+      #corner-left-up,
+      #edge-up,
+      #corner-right-up,
+      #edge-left,
+      #middle,
+      #edge-right,
+      #corner-left-down,
+      #edge-down,
+      #corner-right-down {
+        border-width: 1.875px;
+      }
+    }
+
+    @media((max-width: 250px) or (max-height: 320px)){
+      .main {
+        width: 155px;
+        height: 155px;
+      }
+
+      .text {
+        font-size: 15px;
+      }
+
+      .box {
+        width: 50px;
+        height: 50px;
+      }
+
+      #line{
+        width: 3.75px;
+      }
+
+      #corner-left-up,
+      #edge-up,
+      #corner-right-up,
+      #edge-left,
+      #middle,
+      #edge-right,
+      #corner-left-down,
+      #edge-down,
+      #corner-right-down {
+        border-width: 1.25px;
+      }
+    }
+
+    @media((max-width: 180px) or (max-height: 220px)){
+      .main {
+        width: 94px;
+        height: 94px;
+      }
+
+      .text {
+        margin-top: 0px;
+        font-size: 15px;
+      }
+
+      .box {
+        width: 30px;
+        height: 30px;
+      }
+
+      #line{
+        width: 2.7px;
+      }
+
+
+      #corner-left-up,
+      #edge-up,
+      #corner-right-up,
+      #edge-left,
+      #middle,
+      #edge-right,
+      #corner-left-down,
+      #edge-down,
+      #corner-right-down {
+        border-width: 0.90px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="score"> 
+    <p id="player1" class="text" style="margin-right: 30px;">X - 0</p>
+    <p id="player2" class="text"><b>O</b> - 0</p>
+  </div> 
+  <div class="main">
+    <img onclick="onClick('corner-left-up')" src="static/blank.svg" id="corner-left-up" class="box">
+    <img onclick="onClick('edge-up')" src="static/blank.svg" id="edge-up" class="box">
+    <img onclick="onClick('corner-right-up')" src="static/blank.svg" id="corner-right-up" class="box">
+    <img onclick="onClick('edge-left')" src="static/blank.svg" id="edge-left" class="box">
+    <img onclick="onClick('middle')" src="static/blank.svg" id="middle" class="box">
+    <img onclick="onClick('edge-right')" src="static/blank.svg" id="edge-right" class="box">
+    <img onclick="onClick('corner-left-down')" src="static/blank.svg" id="corner-left-down" class="box">
+    <img onclick="onClick('edge-down')" src="static/blank.svg" id="edge-down" class="box">
+    <img onclick="onClick('corner-right-down')" src="static/blank.svg" id="corner-right-down" class="box">
+  </div>
+  <hr id="line">
+
+  <script>
+    const defaultBoard = {
+      board1: undefined,
+      board2: undefined,
+      board3: undefined,
+      board4: undefined,
+      board5: undefined,
+      board6: undefined,
+      board7: undefined,
+      board8: undefined,
+      board9: undefined
+    };
+
+    const score = {
+      player1: 0,
+      player2: 0
+    }
+
+    let board = Object.assign({}, defaultBoard);
+
+    let player1 = true;
+    let player2 = false;
+
+    function transformIntoBoardNumber(boxId){
+      if(boxId === "corner-left-up"){
+        return "board1";
+      }
+      if(boxId === "edge-up"){
+        return "board2";
+      }
+      if(boxId === "corner-right-up"){
+        return "board3";
+      }
+      if(boxId === "edge-left"){
+        return "board4";
+      }
+      if(boxId === "middle"){
+        return "board5";
+      }
+      if(boxId === "edge-right"){
+        return "board6";
+      }
+      if(boxId === "corner-left-down"){
+        return "board7";
+      }
+      if(boxId === "edge-down"){
+        return "board8";
+      }
+      if(boxId === "corner-right-down"){
+        return "board9";
+      }
+    }
+
+    function refreshBoard(boxRefresh, box){
+      if(boxRefresh == "x"){
+        box.src = "static/x.svg";
+      }else{
+        box.src = "static/0.svg";
+      }
+    }
+
+    function checkIfItsFull(){
+      for(let i = 1; i <= 9; i++){
+        if(board["board" + i] === undefined){
+          return false;
+        }
+      }
+      return true
+    }
+
+    function restart(){
+      board = Object.assign({}, defaultBoard);
+      document.getElementById("line").style.height = "0px";
+
+      document.getElementById("corner-left-up").src = "static/blank.svg";
+      document.getElementById("edge-up").src = "static/blank.svg";
+      document.getElementById("corner-right-up").src = "static/blank.svg";
+      document.getElementById("edge-left").src = "static/blank.svg";
+      document.getElementById("middle").src = "static/blank.svg";
+      document.getElementById("edge-right").src = "static/blank.svg";
+      document.getElementById("corner-left-down").src = "static/blank.svg";
+      document.getElementById("edge-down").src = "static/blank.svg";
+      document.getElementById("corner-right-down").src = "static/blank.svg";
+    }
+
+    function createLine(startPosition, endPosition){
+      let line = document.getElementById("line");
+      let divSize = document.body.offsetHeight;
+      
+      if(startPosition === 1){
+        let target1 = document.getElementById("corner-left-up").getBoundingClientRect();
+        let target1_X = target1.left + target1.width / 2;
+        let target1_Y = target1.top + target1.height / 2;
+
+        line.style.left = target1_X + "px";
+        line.style.top = target1_Y + "px";
+        
+        if(endPosition === 9){
+          line.style.transform = "rotate(315deg)";
+          line.style.transformOrigin = 'top';
+          
+          let target2 = document.getElementById("corner-right-down").getBoundingClientRect();
+          let target2_Y = target2.top + target2.height / 2;
+
+          let line_pos = target1_Y + (line.offsetHeight / 1.414);
+
+          function increaseHeight() {
+            if(target2_Y >= line_pos){
+              line_pos = target1_Y + (line.offsetHeight / 1.414);
+              line.style.height = line.offsetHeight + Math.ceil(divSize/93) + "px";
+              setTimeout(increaseHeight, 1);
+            }
+            else{
+              setTimeout(restart, 500);
+            }
+          }
+          increaseHeight();
+        }
+        if(endPosition === 3){
+          line.style.transform = "rotate(270deg)";
+          line.style.transformOrigin = 'top';
+          
+          let target2 = document.getElementById("corner-right-up").getBoundingClientRect();
+          let target2_X = target2.left + target2.width / 2;
+
+          let line_pos = target1_X + line.offsetHeight;
+
+          function increaseHeight() {
+            if(target2_X >= line_pos){
+              line_pos = target1_X + line.offsetHeight;
+              line.style.height = line.offsetHeight + Math.ceil(divSize/93) + "px";
+              setTimeout(increaseHeight, 1);
+            }
+            else{
+              setTimeout(restart, 500);
+            }
+          }
+          increaseHeight();
+        }
+        if(endPosition === 7){
+          line.style.transform = "rotate(0deg)";
+          line.style.transformOrigin = 'top';
+
+          let target2 = document.getElementById("corner-left-down").getBoundingClientRect();
+          let target2_Y = target2.top + target2.height / 2;
+
+          let line_pos = target1_Y + line.offsetHeight;
+
+          function increaseHeight() {
+            if(target2_Y >= line_pos){
+              line_pos = target1_Y + line.offsetHeight;
+              line.style.height = line.offsetHeight + Math.ceil(divSize/93) + "px";
+              setTimeout(increaseHeight, 1);
+            }
+            else{
+              setTimeout(restart, 500);
+            }
+          }
+          increaseHeight();
+        }
+      }
+
+      if(startPosition === 2){
+        let target1 = document.getElementById("edge-up").getBoundingClientRect();
+        let target1_X = target1.left + target1.width / 2;
+        let target1_Y = target1.top + target1.height / 2;
+
+        line.style.transform = "rotate(0deg)";
+        line.style.transformOrigin = 'top';
+
+        line.style.left = target1_X + "px";
+        line.style.top = target1_Y + "px";
+
+        let target2 = document.getElementById("edge-down").getBoundingClientRect();
+        let target2_Y = target2.top + target2.height / 2;
+
+        let line_pos = target1_Y + line.offsetHeight;
+
+        function increaseHeight() {
+          if(target2_Y >= line_pos){
+            line_pos = target1_Y + line.offsetHeight;
+            line.style.height = line.offsetHeight + Math.ceil(divSize/93) + "px";
+            setTimeout(increaseHeight, 1);
+          }
+          else{
+            setTimeout(restart, 500);
+          }
+        }
+        increaseHeight();
+      }
+
+      if(startPosition === 3){
+        let target1 = document.getElementById("corner-right-up").getBoundingClientRect();
+        let target1_X = target1.left + target1.width / 2;
+        let target1_Y = target1.top + target1.height / 2;
+
+        line.style.transform = "rotate(0deg)";
+        line.style.transformOrigin = 'top';
+
+        line.style.left = target1_X + "px";
+        line.style.top = target1_Y + "px";
+
+        let target2 = document.getElementById("corner-right-down").getBoundingClientRect();
+        let target2_Y = target2.top + target2.height / 2;
+
+        let line_pos = target1_Y + line.offsetHeight;
+
+        function increaseHeight() {
+          if(target2_Y >= line_pos){
+            line_pos = target1_Y + line.offsetHeight;
+            line.style.height = line.offsetHeight + Math.ceil(divSize/93) + "px";
+            setTimeout(increaseHeight, 1);
+          }
+          else{
+            setTimeout(restart, 500);
+          }
+        }
+        increaseHeight();
+      }
+
+      if(startPosition === 4){
+        let target1 = document.getElementById("edge-left").getBoundingClientRect();
+        let target1_X = target1.left + target1.width / 2;
+        let target1_Y = target1.top + target1.height / 2;
+
+        line.style.transform = "rotate(270deg)";
+        line.style.transformOrigin = 'top';
+
+        line.style.left = target1_X + "px";
+        line.style.top = target1_Y + "px";
+
+        let target2 = document.getElementById("edge-right").getBoundingClientRect();
+        let target2_X = target2.left + target2.width / 2;
+
+        let line_pos = target1_X + line.offsetHeight;
+
+        function increaseHeight() {
+          if(target2_X >= line_pos){
+            line_pos = target1_X + line.offsetHeight;
+            line.style.height = line.offsetHeight + Math.ceil(divSize/93) + "px";
+            setTimeout(increaseHeight, 1);
+          }
+          else{
+            setTimeout(restart, 500);
+          }
+        }
+        increaseHeight();
+      }
+
+      if(startPosition === 7){
+        let target1 = document.getElementById("corner-left-down").getBoundingClientRect();
+        let target1_X = target1.left + target1.width / 2;
+        let target1_Y = target1.top + target1.height / 2;
+
+        line.style.left = target1_X + "px";
+        line.style.top = target1_Y + "px";
+
+        if(endPosition === 3){
+          console.log("fdgfds");
+          
+          line.style.transform = "rotate(225deg)";
+          line.style.transformOrigin = 'top';
+          
+          let target2 = document.getElementById("corner-right-up").getBoundingClientRect();
+          let target2_Y = target2.top + target2.height / 2;
+
+          let line_pos = target1_Y - (line.offsetHeight / 1.414);
+
+          function increaseHeight() {
+            if(line_pos >= target2_Y){
+              line_pos = target1_Y - (line.offsetHeight / 1.414);
+              line.style.height = line.offsetHeight + Math.ceil(divSize/93) + "px";
+              setTimeout(increaseHeight, 1);
+            }
+            else{
+              setTimeout(restart, 500);
+            }
+          }
+          increaseHeight();
+        }
+
+        if(endPosition === 9){
+          line.style.transform = "rotate(270deg)";
+          line.style.transformOrigin = 'top';
+          
+          let target2 = document.getElementById("corner-right-down").getBoundingClientRect();
+          let target2_X = target2.left + target2.width / 2;
+
+          let line_pos = target1_X + line.offsetHeight;
+
+          function increaseHeight() {
+            if(target2_X >= line_pos){
+              line_pos = target1_X + line.offsetHeight;
+              line.style.height = line.offsetHeight + Math.ceil(divSize/93) + "px";
+              setTimeout(increaseHeight, 1);
+            }
+            else{
+              setTimeout(restart, 500);
+            }
+          }
+          increaseHeight();
+        }
+      }
+    }
+
+    function checkIfWon(player){
+      let sign;
+      if(player){
+        sign = "x";
+      }else{
+        sign = "0";
+      }
+
+      if(board.board5 === sign){
+        if(board.board1 === sign){
+          if(board.board9 === sign){
+            createLine(1, 9);
+            if(sign === "x"){
+              return 2;
+            }
+            return 1;
+          }
+        }
+        if(board.board3 === sign){
+          if(board.board7 === sign){
+            createLine(7, 3);
+            if(sign === "x"){
+              return 2;
+            }
+            return 1;
+          }
+        }
+        if(board.board2 === sign){
+          if(board.board8 === sign){
+            createLine(2, 8);
+            if(sign === "x"){
+              return 2;
+            }
+            return 1;
+          }
+        }
+        if(board.board4 === sign){
+          if(board.board6 === sign){
+            createLine(4, 6);
+            if(sign === "x"){
+              return 2;
+            }
+            return 1;
+          }
+        }
+      }
+      if(board.board4 === sign){
+        if(board.board1 === sign){
+          if(board.board7 === sign){
+            createLine(1, 7);
+            if(sign === "x"){
+              return 2;
+            }
+            return 1;
+          }
+        }
+      }
+      if(board.board2 === sign){
+        if(board.board1 === sign){
+          if(board.board3 === sign){
+            createLine(1, 3);
+            if(sign === "x"){
+              return 2;
+            }
+            return 1;
+          }
+        }
+      }
+      if(board.board8 === sign){
+        if(board.board7 === sign){
+          if(board.board9 === sign){
+            createLine(7, 9);
+            if(sign === "x"){
+              return 2;
+            }
+            return 1;
+          }
+        }
+      }
+      if(board.board6 === sign){
+        if(board.board3 === sign){
+          if(board.board9 === sign){
+            createLine(3, 9);
+            if(sign === "x"){
+              return 2;
+            }
+            return 1;
+          }
+        }
+      }
+      if(checkIfItsFull()){
+        setTimeout(restart,200);
+      }
+    }
+
+    function onClick(boxId){
+      box = document.getElementById(boxId);
+      boardNum = transformIntoBoardNumber(boxId);
+      
+      if(board[boardNum] !== undefined){
+        return;
+      }
+      if(player1){
+        board[boardNum] = "x";
+      }
+      else if(player2){
+        board[boardNum] = "0";
+      }
+
+      refreshBoard(board[boardNum], box);
+      result = checkIfWon(player1, board);
+      if(result){
+        if(result === 2){
+          score.player1++;
+          document.getElementById("player1").innerHTML = "X -  " + score.player1;
+        }
+        else{
+          score.player2++;
+          document.getElementById("player2").innerHTML = "O - " + score.player2;
+        }
+      }
+
+      let temp = player1;
+      player1 = player2;
+      player2 = temp;
+    }
+  </script>
+</body>
+</html>
